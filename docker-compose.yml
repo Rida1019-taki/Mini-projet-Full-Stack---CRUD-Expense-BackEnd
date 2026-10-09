@@ -14,12 +14,6 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - expense-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-root}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
 
   backend:
     build:
