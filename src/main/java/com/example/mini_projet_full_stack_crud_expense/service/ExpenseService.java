@@ -3,6 +3,8 @@ package com.example.mini_projet_full_stack_crud_expense.service;
 import com.example.mini_projet_full_stack_crud_expense.dto.ExpenseRequest;
 import com.example.mini_projet_full_stack_crud_expense.dto.ExpenseResponse;
 import com.example.mini_projet_full_stack_crud_expense.entity.Expense;
+import com.example.mini_projet_full_stack_crud_expense.enums.Categorie;
+import com.example.mini_projet_full_stack_crud_expense.enums.ModePaiement;
 import com.example.mini_projet_full_stack_crud_expense.exception.ResourceNotFoundException;
 import com.example.mini_projet_full_stack_crud_expense.mapper.ExpenseMapper;
 import com.example.mini_projet_full_stack_crud_expense.repository.ExpenseRepository;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.ResolutionException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -49,5 +53,21 @@ public class ExpenseService {
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Expense non trouvée avec l'id : " + id));
             expenseRepository.delete(expense);
+        }
+
+        public List<ExpenseResponse> findByCategorie(Categorie categorie){
+            return expenseRepository.findByCategorie(categorie);
+        }
+
+        public List<ExpenseResponse> findByModePaiement(ModePaiement modePaiement){
+            return expenseRepository.findByModePaiement(modePaiement);
+        }
+
+        public List<ExpenseResponse> findByDateDepenseAfter(LocalDate dateDepense){
+            return expenseRepository.findByDateDepenseAfter(dateDepense);
+        }
+
+        public List<ExpenseResponse> findByMontantGreaterThan(BigDecimal montant){
+            return expenseRepository.findByMontantGreaterThan(montant);
         }
 }

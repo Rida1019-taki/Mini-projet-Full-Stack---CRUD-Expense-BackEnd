@@ -2,6 +2,8 @@ package com.example.mini_projet_full_stack_crud_expense.controller;
 
 import com.example.mini_projet_full_stack_crud_expense.dto.ExpenseRequest;
 import com.example.mini_projet_full_stack_crud_expense.dto.ExpenseResponse;
+import com.example.mini_projet_full_stack_crud_expense.enums.Categorie;
+import com.example.mini_projet_full_stack_crud_expense.enums.ModePaiement;
 import com.example.mini_projet_full_stack_crud_expense.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -42,5 +46,25 @@ public class ExpenseController {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         expenseService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/categorie/{categorie}")
+    public ResponseEntity<List<ExpenseResponse>> findByCategorie(@PathVariable Categorie categorie){
+        return ResponseEntity.ok(expenseService.findByCategorie(categorie));
+    }
+
+    @GetMapping("/modePaiemnt/{modePaiemnt}")
+    public ResponseEntity<List<ExpenseResponse>> findByModePaiement(@PathVariable ModePaiement modePaiemnt){
+        return ResponseEntity.ok(expenseService.findByModePaiement(modePaiemnt));
+    }
+
+    @GetMapping("/dateDepenseAfter/{dateDepenseAfter}")
+    public ResponseEntity<List<ExpenseResponse>> findByDateDepenseAfter(@PathVariable LocalDate dateDepenseAfter){
+        return ResponseEntity.ok(expenseService.findByDateDepenseAfter(dateDepenseAfter));
+    }
+
+    @GetMapping("/montantGreaterThan/{montantGreaterThan}")
+    public ResponseEntity<List<ExpenseResponse>> findByMontantGreaterThan(@PathVariable BigDecimal montantGreaterThan){
+        return ResponseEntity.ok(expenseService.findByMontantGreaterThan(montantGreaterThan));
     }
 }
