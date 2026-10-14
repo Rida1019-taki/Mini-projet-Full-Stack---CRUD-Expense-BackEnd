@@ -70,4 +70,20 @@ public class ExpenseService {
         public List<ExpenseResponse> findByMontantGreaterThan(BigDecimal montant){
             return expenseRepository.findByMontantGreaterThan(montant);
         }
+
+        public List<ExpenseResponse> findDepenseBetweenTwoDate(LocalDate dateDebut, LocalDate dateFin){
+            return expenseRepository.findDepenseBetweenTwoDate(dateDebut, dateFin);
+        }
+
+        public BigDecimal CalculerMontantTotal(){
+            return expenseRepository.CalculerMontantTotal();
+        }
+
+        public BigDecimal CalculerMontantParCategorie(Categorie categorie){
+            return expenseRepository.CalculerMontantParCategorie(categorie);
+        }
+
+        public BigDecimal DepenseAyantLeMontant(){
+            return expenseRepository.findMontantMax();
+        }
 }

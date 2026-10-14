@@ -67,4 +67,24 @@ public class ExpenseController {
     public ResponseEntity<List<ExpenseResponse>> findByMontantGreaterThan(@PathVariable BigDecimal montantGreaterThan){
         return ResponseEntity.ok(expenseService.findByMontantGreaterThan(montantGreaterThan));
     }
+
+    @GetMapping("/depenseBetweenTwoDate/{dateDebut}/{dateFin}")
+    public ResponseEntity<List<ExpenseResponse>> findDepenseBetweenTwoDate(@PathVariable LocalDate dateDebut, @PathVariable LocalDate dateFin){
+        return ResponseEntity.ok(expenseService.findDepenseBetweenTwoDate(dateDebut, dateFin));
+    }
+
+    @GetMapping("/calculerMontantTotal")
+    public ResponseEntity<BigDecimal> CalculerMontantTotal(){
+        return ResponseEntity.ok(expenseService.CalculerMontantTotal());
+    }
+
+    @GetMapping("/calculerMontantTotalParCategorie/{categorie}")
+    public ResponseEntity<BigDecimal> CalculerMontantParCategorie(@PathVariable Categorie categorie){
+        return ResponseEntity.ok(expenseService.CalculerMontantParCategorie(categorie));
+    }
+
+    @GetMapping("/depenseAyantLeMontant")
+    public ResponseEntity<BigDecimal> DepenseAyantLeMontant(){
+        return ResponseEntity.ok(expenseService.DepenseAyantLeMontant());
+    }
 }
